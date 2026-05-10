@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Bot Demo</title>
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 20px;
+            margin: 0;
+            overflow: hidden;
+            font-size: 16px;
+        }
+        .container {
+            width: 100%;
+            height: 100vh;
+        }
+        .prompt::before {
+            content: "Soham@Desktop MINGW64 ~/Projects/Binance-Futures-Assignment/trading_bot\n$ ";
+            color: #4CAF50;
+            white-space: pre-wrap;
+        }
+        .cyan { color: #00bcd4; font-weight: bold; }
+        .green { color: #4CAF50; }
+        .yellow { color: #ffeb3b; }
+        .red { color: #f44336; }
+        .typing { display: inline; }
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 18px;
+            background-color: #d4d4d4;
+            vertical-align: middle;
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        .line { margin-top: 4px; margin-bottom: 4px; white-space: pre-wrap; display: none; }
+    </style>
+</head>
+<body>
+    <div class="container" id="terminal">
+        <div id="cmd1" class="line" style="display: block;">
+            <span class="prompt"></span><span class="typing" id="typing1"></span><span class="cursor" id="cursor1"></span>
+        </div>
+        <div id="out1" class="line"><span class="cyan">==================================================</span></div>
+        <div id="out2" class="line"><span class="cyan">   Binance Futures Testnet Trading Bot CLI</span></div>
+        <div id="out3" class="line"><span class="cyan">==================================================</span><br></div>
+        <div id="out4" class="line"><span class="yellow">[INFO] Order Request Summary:</span></div>
+        <div id="out5" class="line">  - Symbol:   BTCUSDT</div>
+        <div id="out6" class="line">  - Side:     BUY</div>
+        <div id="out7" class="line">  - Type:     MARKET</div>
+        <div id="out8" class="line">  - Quantity: 0.01<br></div>
+        <div id="out9" class="line"><span class="yellow">[INFO] Connecting to Binance Futures Testnet...</span></div>
+        <div id="out10" class="line"><span class="green">[SUCCESS] Connected successfully.</span><br></div>
+        <div id="out11" class="line"><span class="yellow">[INFO] Placing order...</span><br></div>
+        <div id="out12" class="line"><span class="green">[SUCCESS] Order placed successfully!</span></div>
+        <div id="out13" class="line"><span class="green" style="font-weight: bold;">--- Order Details ---</span></div>
+        <div id="out14" class="line">  Order ID:     3495819203</div>
+        <div id="out15" class="line">  Status:       FILLED</div>
+        <div id="out16" class="line">  Executed Qty: 0.01</div>
+        <div id="out17" class="line">  Avg Price:    64230.10</div>
+        <div id="out18" class="line"><span class="green" style="font-weight: bold;">---------------------</span></div>
+        <div id="cmd2" class="line">
+            <span class="prompt"></span><span class="cursor" id="cursor2"></span>
+        </div>
+    </div>
+
+    <script>
+        const commandText = "python cli.py --symbol BTCUSDT --side BUY --type MARKET --qty 0.01";
+        let charIndex = 0;
+
+        function typeCommand() {
+            if (charIndex < commandText.length) {
+                document.getElementById('typing1').textContent += commandText.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeCommand, 50 + Math.random() * 50);
+            } else {
+                document.getElementById('cursor1').style.display = 'none';
+                setTimeout(showOutput, 500);
+            }
+        }
+
+        const outputs = [
+            { id: 'out1', delay: 100 },
+            { id: 'out2', delay: 100 },
+            { id: 'out3', delay: 100 },
+            { id: 'out4', delay: 400 },
+            { id: 'out5', delay: 500 },
+            { id: 'out6', delay: 500 },
+            { id: 'out7', delay: 500 },
+            { id: 'out8', delay: 500 },
+            { id: 'out9', delay: 800 },
+            { id: 'out10', delay: 1600 },
+            { id: 'out11', delay: 2000 },
+            { id: 'out12', delay: 3000 },
+            { id: 'out13', delay: 3000 },
+            { id: 'out14', delay: 3000 },
+            { id: 'out15', delay: 3000 },
+            { id: 'out16', delay: 3000 },
+            { id: 'out17', delay: 3000 },
+            { id: 'out18', delay: 3000 },
+            { id: 'cmd2', delay: 3500 }
+        ];
+
+        function showOutput() {
+            outputs.forEach(out => {
+                setTimeout(() => {
+                    document.getElementById(out.id).style.display = 'block';
+                    window.scrollTo(0, document.body.scrollHeight);
+                }, out.delay);
+            });
+        }
+
+        setTimeout(typeCommand, 1000);
+    </script>
+</body>
+</html>
