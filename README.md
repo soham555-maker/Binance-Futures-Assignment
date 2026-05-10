@@ -2,6 +2,9 @@
 
 A simplified, structured Python CLI application to place Market and Limit orders on the Binance Futures Testnet (USDT-M).
 
+## Demo
+![Trading Bot Demo](trading_bot/demo_video.webp)
+
 ## Features
 
 - **Order Types:** Place MARKET and LIMIT orders.
